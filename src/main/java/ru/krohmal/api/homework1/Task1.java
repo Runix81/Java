@@ -1,6 +1,6 @@
 package ru.krohmal.api.homework1;
 
-public class Menu {
+public class Task1 {
     public static void main(String[] args) {
 
     }
