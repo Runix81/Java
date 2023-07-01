@@ -1,11 +1,12 @@
 package ru.krohmal.api.homework1;
 
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Menu {
     public static Scanner sc = new Scanner(System.in);
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         boolean t = true;
         while (t) {
