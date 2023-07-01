@@ -1,10 +1,10 @@
 package ru.krohmal.api.homework2;
 
-public class BubleSort {
+public class JsonParse {
     public static void main(String[] args) {
-        Start();
+        start();
     }
-    public static void Start(){
+    public static void start(){
 
     }
 }
