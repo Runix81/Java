@@ -23,13 +23,14 @@ package ru.krohmal.api.homework2;
           StringBuilder sb = new StringBuilder();
           String str;
           while ((str = br.readLine()) != null) {
-              str = str.replaceAll("[\\[{,}\\]:\"]+"," ");
+              str = str.replaceAll("[\\[{,\\]:\"]+"," ");
               str = str.replaceAll("name","");
               str = str.replaceAll("country","");
               str = str.replaceAll("city","");
               str = str.replaceAll("age","");
               str = str.replaceAll("null","");
-            sb.append("\n"+str);
+              str = str.replaceAll("}","\n");
+            sb.append(str+"\n");
           }
           System.out.println(sb);
           }
