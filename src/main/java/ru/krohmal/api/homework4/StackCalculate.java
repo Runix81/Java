@@ -1,62 +1,95 @@
 package ru.krohmal.api.homework4;
 
-import ru.krohmal.api.homework1.Menu;
-
-import java.io.File;
-import java.io.FileWriter;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Formatter;
-import java.util.Objects;
+import java.io.InputStreamReader;
+import java.util.LinkedList;
 
 public class StackCalculate {
-    public static void main(String[] args) {
-        start();
-    }
-    public static Formatter start() {
-        String[] lst = new String[]{"+", "-", "*", "/"};
-        System.out.print("Введите первое число: ");
-        double x = Double.parseDouble(Menu.sc.nextLine());
-        System.out.print("Выберите действие: ");
-        String[] action = new String[]{Menu.sc.nextLine()};
-        System.out.print("Введите второе число: ");
-        double y = Double.parseDouble(Menu.sc.nextLine());
-        double res;
-        Formatter s = new Formatter();
-        if (action[0].equals(lst[0])) {
-            res = x + y;
-            s.format("%.2f %s %.2f = %.2f\n", x, action[0], y, res);
-        } else if (action[0].equals(lst[1])) {
-            res = x - y;
-            s.format("%.2f %s %.2f = %.2f\n", x, action[0], y, res);
-        } else if (action[0].equals(lst[2])) {
-            res = x * y;
-            s.format("%.2f %s %.2f = %.2f\n", x, action[0], y, res);
-        } else if (action[0].equals(lst[3])) {
-            res = x / y;
-            s.format("%.2f %s %.2f = %.2f\n", x, action[0], y, res);
-        }
-        System.out.println(s);
-        return s;
+    private static LinkedList elements = new LinkedList();
+    public static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+
+    StackCalculate() {
+
     }
 
-    public static void LogFile(Formatter b) {
-        String text = b.toString();
-        File file = new File("log.txt");
-        FileWriter fr = null;
-        try {
-            fr = new FileWriter(file,true);
-            fr.write(text);
+    StackCalculate(LinkedList linkedList) {
+        this.elements = linkedList;
+    }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally{
-            try {
-                Objects.requireNonNull(fr).close();
-            } catch (IOException e) {
-                e.printStackTrace();
+    public static void main(String[] args) throws IOException {
+        calcMenu();
+    }
+
+    public static void calcMenu() throws IOException {
+        boolean f = true;
+        while (f) {
+            System.out.println("Выберите действие: ");
+            System.out.println("1. Посчитать.");
+            System.out.println("2. Вывести последнюю операцию и удалить.");
+            System.out.println("0. Завершить работу.");
+            int select = Integer.parseInt(reader.readLine());
+            if (select == 1) {
+                calculate(elements);
+            } else if (select == 2) {
+                chancelOperation(elements);
+            } else if (select == 0) {
+                f = false;
+                System.out.print("Работа завершена.");
             }
         }
     }
-
+    public static LinkedList calculate(LinkedList linkedList) throws IOException {
+        double res;
+        System.out.println("Введите первое число: ");
+        double x = Double.parseDouble(reader.readLine());
+        elements.addLast(x);
+        System.out.println("Выбирите действие (+,-,*,/): ");
+        String d = reader.readLine();
+        elements.addLast(d);
+        System.out.println("Введите второе число: ");
+        double y = Double.parseDouble(reader.readLine());
+        elements.addLast(y);
+        if (elements.get(elements.size()-2).equals("+")){
+            res = x + y;
+            System.out.println(res);
+            elements.addLast(res);
+        }
+        else if (elements.get(elements.size()-2).equals("-")){
+            res = x - y;
+            System.out.println(res);
+            elements.addLast(res);
+        }
+        else if (elements.get(elements.size()-2).equals("*")) {
+            res = x * y;
+            System.out.println(res);
+            elements.addLast(res);
+        }
+        else if (elements.get(elements.size()-2).equals("/")) {
+            res = x / y;
+            System.out.println(res);
+            elements.addLast(res);
+        }
+       return elements;
+    }
+    public static LinkedList chancelOperation(LinkedList linkedList) {
+        if (elements.isEmpty()) {
+            return null;
+        } else {
+            String s = "";
+            for (int i = elements.size() - 4; i < elements.size(); i++) {
+                s += elements.get(i);
+                s+= " ";
+            }
+            System.out.println(s);
+            for (int i = 0; i < 4; i++) {
+                elements.removeLast();
+            }
+            return elements;
+        }
+    }
 }
+
+
 

@@ -22,9 +22,9 @@ public class HomeWork4Menu {
             if (selectMenu == 1) {
                 ReverseList.start();
             } else if (selectMenu == 2) {
-                WorkWithList.start();
+                WorkWithList.menu();
             } else if (selectMenu == 3) {
-                StackCalculate.start();
+                StackCalculate.calcMenu();
             } else if (selectMenu == 0) {
                 t = false;
                 System.out.println("Завершение работы");
